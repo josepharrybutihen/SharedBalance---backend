@@ -4,19 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "users")
 @Data
-public class User {
+public class UserSettings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
+    private boolean pushNotifications;
 
-    @Column(unique = true)
-    private String email;
-
-    private String password;
-    private String profileImage;
+    private String language;
 }

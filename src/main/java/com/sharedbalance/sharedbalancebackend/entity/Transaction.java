@@ -3,20 +3,21 @@ package com.sharedbalance.sharedbalancebackend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "users")
 @Data
-public class User {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
+    private String groupName;
 
-    @Column(unique = true)
-    private String email;
+    private String name;
 
-    private String password;
-    private String profileImage;
+    private String transactionType;
+
+    private LocalDate date;
 }
