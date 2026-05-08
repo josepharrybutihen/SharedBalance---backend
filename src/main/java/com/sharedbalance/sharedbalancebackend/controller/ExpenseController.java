@@ -30,7 +30,10 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/expenses")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://shared-balance-azure.vercel.app"
+})
 public class ExpenseController {
 
     private final ExpenseRepository expenseRepository;

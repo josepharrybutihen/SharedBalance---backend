@@ -13,7 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/groups")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://shared-balance-azure.vercel.app"
+})
 public class GroupController {
 
     private final GroupRepository groupRepository;
