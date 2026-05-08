@@ -13,10 +13,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long groupId; // ✅ IMPORTANT
     private String groupName;
 
-    private String name;
-
+    private String name; // who did it
     private String transactionType;
 
     private LocalDate date;

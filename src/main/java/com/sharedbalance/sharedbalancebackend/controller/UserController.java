@@ -53,7 +53,8 @@ public class UserController {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setFullName(req.get("fullName"));
+        user.setFirstName(req.get("firstName"));
+        user.setLastName(req.get("lastName"));        
         user.setEmail(req.get("email"));
         user.setProfileImage(req.get("profileImage")); // ADD THIS
 
@@ -87,6 +88,13 @@ public class UserController {
         userRepository.save(user);
 
         return Map.of("url", user.getProfileImage());
+    }
+
+    @GetMapping("/all")
+    public Map<String, Object> getAllUsers(){
+        return Map.of(
+                "payload", userRepository.findAll()
+        );
     }
 }
 
