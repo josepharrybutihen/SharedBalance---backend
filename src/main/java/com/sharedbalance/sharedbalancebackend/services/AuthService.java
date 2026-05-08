@@ -3,6 +3,8 @@ package com.sharedbalance.sharedbalancebackend.services;
 import com.sharedbalance.sharedbalancebackend.dto.*;
 import com.sharedbalance.sharedbalancebackend.entity.User;
 import com.sharedbalance.sharedbalancebackend.repository.UserRepository;
+import com.sharedbalance.sharedbalancebackend.security.JwtService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public ApiResponse register(RegisterRequest request) {
 
@@ -34,7 +37,8 @@ public class AuthService {
 
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setFullName(request.getFullName());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
@@ -46,20 +50,24 @@ public class AuthService {
 
     public ApiResponse login(LoginRequest request) {
 
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElse(null);
+    User user = userRepository.findByEmail(request.getEmail())
+            .orElse(null);
 
-        if (user == null ||
-                !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+    if (user == null ||
+            !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
 
-            return ApiResponse.error(Map.of(
-                    "type", "AUTH_FAIL",
-                    "message", "Invalid credentials"
-            ));
-        }
-
-        return ApiResponse.success(Map.of(
-                "account", user
+        return ApiResponse.error(Map.of(
+                "type", "AUTH_FAIL",
+                "message", "Invalid credentials"
         ));
     }
+
+    // ✅ GENERATE TOKEN
+    String token = jwtService.generateToken(user.getEmail());
+
+    return ApiResponse.success(Map.of(
+            "account", user,
+            "accessToken", token   // 🔥 THIS IS WHAT YOU WERE MISSING
+    ));
+}
 }
