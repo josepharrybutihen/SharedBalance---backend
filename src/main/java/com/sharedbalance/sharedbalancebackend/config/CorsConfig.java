@@ -16,7 +16,10 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // allow your frontend URL
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(List.of(
+            "http://localhost:3000",
+            "https://shared-balance-azure.vercel.app"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // important if using cookies or auth headers
