@@ -10,7 +10,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://shared-balance-azure.vercel.app"
+})
 public class SettingsController {
 
     private final UserSettingsRepository userSettingsRepository;

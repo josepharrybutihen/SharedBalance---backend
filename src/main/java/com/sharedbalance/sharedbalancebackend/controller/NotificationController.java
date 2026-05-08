@@ -13,7 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/notifications")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://shared-balance-azure.vercel.app"
+})
 public class NotificationController {
 
     private final NotificationRepository notificationRepository;
